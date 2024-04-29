@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+
+</head>
+
+<body>
+    <div class="calculator">
+        <div class="display">
+            <div class="display-operations"><input type="text" placeholder=""></div>
+            <div class="display-continues"> <input type="text" placeholder=""></div>
+        </div>
+
+        <div class="container-buttons">
+            <button class="red-C hover" onclick="clean()"><span>C</span></button>
+            <button class="button-color hover"><span>( )</span></button> <!-- aqui ainda não tem onclick -->
+            <button class="button-color hover" onclick="insert('%')"><span>%</span></button>
+            <button class="button-color hover" onclick="insert('÷')"><span>÷</span></button>
+            <button class="hover" onclick="insert(7)">7</button>
+            <button class="hover" onclick="insert(8)">8</button>
+            <button class="hover" onclick="insert(9)">9</button>
+            <button class="button-color hover" onclick="insert('x')"><span>x</span></button>
+            <button class="hover" onclick="insert(4)">4</button>
+            <button class="hover" onclick="insert(5)">5</button>
+            <button class="hover" onclick="insert(6)">6</button>
+            <button class="blue hover" onclick="insert('-')"><span>-</span></button>
+            <button class="hover" onclick="insert(1)">1</button>
+            <button class="hover" onclick="insert(2)">2</button>
+            <button class="hover" onclick="insert(3)">3</button>
+            <button class="button-color hover" onclick="insert('+')"><span>+</span></button>
+            <button class="hover">+/-</button> <!-- aqui ainda não tem onclick -->
+            <button class=" hover" onclick="insert(0)">0</button>
+            <button class="hover" onclick="insert('.')">.</button>
+            <button class="button-background hover-blue" onclick="calculate()"><span>=</span></button>
+            <!-- onclick="equal()" -->
+        </div>
+    </div>
+</body>
+
+</html>
