@@ -1,17 +1,22 @@
-let elements = []; //elementsr números inseridos
+let elements = []; //elements números inseridos
+
+// // falta parênteses, backspace calcular com ponto
+// var valido = true
 
 function clean() {
   elements = [];
   document.getElementsByClassName('display-operations')[0].innerHTML = '';
+  document.getElementById('display-continues').innerHTML = '';
+
+  // document.getElementById('display-continues').innerHTML = '';
 }
 
-// function equal() {
-// document.getElementsByClassName('display-continues').innerHTML = '';
-// document.getElementsByClassName('display-operations').innerHTML = calculate();
-// }
+function insert(numberOrOperations) {
+  let numberIsOperation = numberOrOperations;
 
-function insert(numberOrOperaations) {
-  let numberIsOperation = numberOrOperaations;
+  if ((isMathematicalOperator(numberOrOperations) || numberIsOperation == '.') && elements.length == 0) {
+    return
+  }
 
   const lastInLine = lastIndex(elements);
 
@@ -20,20 +25,29 @@ function insert(numberOrOperaations) {
   }
 
   if (isNumber(lastInLine) && (isNumber(numberIsOperation) || numberIsOperation == '.')) {
-    console.log(lastInLine + numberIsOperation);
     if (!isNumber(lastInLine + numberIsOperation)) {
-
       return;
     }
-    numberIsOperation = lastInLine + numberIsOperation;
+    numberIsOperation = `${lastInLine}` + `${numberIsOperation}`;
     elements.pop();
   }
 
+  // Se a concatenação não resultar em um número válido, isso significa que o último elemento
+  //  da array elements não é um número válido quando concatenado com o próximo número
+  //  ou operador a ser inserido. Nesse caso, a função retorna imediatamente, ou seja, 
+  // não faz mais nada e sai da função.
 
   elements.push(numberIsOperation)
   document.getElementsByClassName('display-operations')[0].innerHTML = elements.join('');
-  // console.log(elements);
+
+  if (((elements.length % 2) != 0) && (elements.length > 1)) {
+    console.log(elements);
+    document.getElementById('display-continues').placeholder = calcular();
+  }
 }
+
+// parseFloat para converter o valor em um número flutuante. 
+// isFinite para verificar se o valor é finito.
 
 function isNumber(number) {
   return !isNaN(parseFloat(number)) && isFinite(number);
@@ -48,152 +62,67 @@ function isMathematicalOperator(operador) {
 }
 
 
+function resul() {
+  let resultado = calcular()
+  document.getElementsByClassName('display-operations')[0].innerHTML = resultado
+  document.getElementsByClassName('display-continues')[0].innerHTML = ''
+
+  elements = []
+  elements.push(resultado)
 
 
-//  TESTE TWO
-
-// function equal() {
-//   let resultt = calculate(elements[0], elements[1], elements[2]);
-//   document.getElementById('display-operations').innerHTML = resultt;
-// }
-
-function calculate(number1, operator, number2) {
-  let result
-
-  if (operator == '+') {
-    result = elements.push(Number(number1) + Number(number2))
-  }
-  if (operator == '-') {
-    result = elements.pop(Number(number1) - Number(number2))
-  }
-  if (operator == 'x') {
-    result = Number(number1) * Number(number2)
-  }
-  if (operator == '÷') {
-    result = Number(number1) / Number(number2)
-  }
-
-  document.getElementsByClassName('display-operations')[0].innerHTML = result;
-
+  // document.getElementById('display-continues').innerHTML = ""
 }
 
+function calcular() {
+  let stack = [];
+  let currentoperator = null;
 
-// function tokenizeExpression(expression) {
-//   return expression.match(/\d+|\+|\-|\*|\/|\(|\)/g);
-// }
+  for (let i = 0; i < elements.length; i++) {
+    const element = elements[i];
 
-// function precedence(operator) {
-//   if (operator === '+' || operator === '-') return 1;
-//   if (operator === 'x' || operator === '÷') return 2;
-//   return 0;
-// }
+    if (!isMathematicalOperator(element)) {
+      if (!currentoperator) {
+        stack.push(element);
 
-// function infixToPostfix(tokens) {
-//   let outputQueue = [];
-//   let operatorStack = [];
+        continue;
+      }
 
-//   tokens.forEach(token => {
-//     if (isNumber(token)) {
-//       outputQueue.push(token);
-//     } else if (token === '(') {
-//       operatorStack.push(token);
-//     } else if (token === ')') {
-//       while (operatorStack.length > 0 && operatorStack[operatorStack.length - 1] !== '(') {
-//         outputQueue.push(operatorStack.pop());
-//       }
-//       operatorStack.pop(); // Remove o '('
-//     } else {
-//       while (operatorStack.length > 0 && precedence(token) <= precedence(operatorStack[operatorStack.length - 1])) {
-//         outputQueue.push(operatorStack.pop());
-//       }
-//       operatorStack.push(token);
-//     }
-//   });
+      if (currentoperator === 'x') {
+        stack[stack.length - 1] *= element;
+      }
 
-//   while (operatorStack.length > 0) {
-//     outputQueue.push(operatorStack.pop());
-//   }
+      if (currentoperator === '/') {
+        stack[stack.length - 1] /= element;
+      }
 
-//   return outputQueue;
-// }
+      currentoperator = null;
+
+      continue;
+    }
+
+    if (element === 'x' || element === '/') {
+      currentoperator = element;
+    }
+
+    if (element === '+' || element === '-') {
+      stack.push(element);
+    }
+  }
 
 
+  let result = stack[0];
+  for (let i = 1; i < stack.length; i += 2) {
+    const operator = stack[i];
 
-// function evaluatePostfix(tokens) {
-//   let stack = [];
+    if (operator === '+') {
+      result += stack[i + 1];
+    }
 
-//   tokens.forEach(token => {
-//     if (isNumber(token)) {
-//       stack.push(Number(token));
-//     } else {
-//       let num2 = stack.pop();
-//       let num1 = stack.pop();
-//       switch (token) {
-//         case '+':
-//           stack.push(num1 + num2);
-//           break;
-//         case '-':
-//           stack.push(num1 - num2);
-//           break;
-//         case 'x':
-//           stack.push(num1 * num2);
-//           break;
-//         case '÷':
-//           stack.push(num1 / num2);
-//           break;
-//       }
-//     }
-//   });
-
-//   return stack.pop();
-
-// }
-
-// function isNumber(token) {
-//   return !isNaN(parseFloat(token)) && isFinite(token);
-// }
-
-// function evaluateExpression(expression) {
-//   let tokens = tokenizeExpression(expression);
-//   let postfixExpression = infixToPostfix(tokens);
-//   return evaluatePostfix(postfixExpression);
-// }
-
-// // Exemplo de uso
-// let expression = "3 + 4 * (2 - 1) / 5";
-// let result = evaluateExpression(expression);
-// console.log(result); // Saída esperada: 3.8
-
-
-
-
-// TESTE UM
-
-
-// function calculate() {
-//   let resultado
-
-//   switch (elements[1]) {
-//     case '+':
-//       resultado = parseFloat(elements[0]) + parseFloat(elements[2])
-//       break;
-//     case '-':
-//       resultado = parseFloat(elements[0]) - parseFloat(elements[2])
-//       break;
-//     case 'x':
-//       resultado = parseFloat(elements[0]) * parseFloat(elements[2])
-//       break;
-//     case '÷':
-//       resultado = parseFloat(elements[0]) / parseFloat(elements[2])
-//       break;
-//   }
-
-//   elements.shift()
-//   elements.shift()
-//   elements[0] = `${resultado}`
-//   console.log(resultado);
-//   while (elements.length > 2) {
-//     return calculate()
-//   }
-//   document.getElementsByClassName('display-operations').innerHTML = elements.join('');
-// }
+    if (operator === '-') {
+      result -= stack[i + 1];
+    }
+  }
+  // document.getElementById('display-continues').innerHTML = result
+  return result;
+}

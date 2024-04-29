@@ -21,8 +21,8 @@
 <body>
     <div class="calculator">
         <div class="display">
-            <div class="display-operations"><input type="text" placeholder=""></div>
-            <div class="display-continues"> <input type="text" placeholder=""></div>
+            <div class="display-operations"><input id="display-operations" type="text"></div>
+            <div class="display-continues"> <input id="display-continues" type="text" placeholder='' ></div>
         </div>
 
         <div class="container-buttons">
@@ -37,7 +37,7 @@
             <button class="hover" onclick="insert(4)">4</button>
             <button class="hover" onclick="insert(5)">5</button>
             <button class="hover" onclick="insert(6)">6</button>
-            <button class="blue hover" onclick="insert('-')"><span>-</span></button>
+            <button class="button-color hover" onclick="insert('-')"><span>-</span></button>
             <button class="hover" onclick="insert(1)">1</button>
             <button class="hover" onclick="insert(2)">2</button>
             <button class="hover" onclick="insert(3)">3</button>
@@ -45,8 +45,7 @@
             <button class="hover">+/-</button> <!-- aqui ainda não tem onclick -->
             <button class=" hover" onclick="insert(0)">0</button>
             <button class="hover" onclick="insert('.')">.</button>
-            <button class="button-background hover-blue" onclick="calculate()"><span>=</span></button>
-            <!-- onclick="equal()" -->
+            <button class="button-background hover-blue" onclick="resul()"><span>=</span></button>
         </div>
     </div>
 </body>
