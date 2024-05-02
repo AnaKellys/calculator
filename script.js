@@ -9,32 +9,7 @@ function clean() {
   document.getElementById('display-continues').placeholder = '';
   let teste = calcular()
   console.log(teste);
-  // document.getElementById('display-continues').innerHTML = '';
-
-  // document.getElementById('display-continues').innerHTML = '';
 }
-
-// function negative() {
-
-//   let resultado = document.getElementById('display-calculator').value
-//   resultado = (lista[0]) * -1
-//   lista[0] = resultado
-//   console.log(resultado)
-//   lista[0] = resultado
-//   document.getElementById('display-calculator').value = resultado
-// }
-
-// function parentheses() {
-//   for (let i = 0; i < elements.length; index++) {
-//     const parentheses = elements[i];
-
-//     if (parentheses == '(' ) {
-//       elements.length[i] = elements.length[i + 1] + ')'  
-
-//     }
-//   }
-// }
-
 
 function insert(numberOrOperations) {
   let numberIsOperation = numberOrOperations;
@@ -66,18 +41,12 @@ function insert(numberOrOperations) {
   document.getElementsByClassName('display-operations')[0].innerHTML = elements.join('');
 
   if (((elements.length % 2) != 0) && (elements.length > 1)) {
-    // console.log(elements);
     document.getElementById('display-continues').placeholder = calcular();
   }
-  //  else {
-  // document.getElementById('display-continues').innerHTML = calcular();
-  // }
-  // console.log(elements);
 }
 
 // parseFloat para converter o valor em um número flutuante. 
 // isFinite para verificar se o valor é finito.
-
 function isNumber(number) {
   return !isNaN(parseFloat(number)) && isFinite(number);
 }
@@ -99,37 +68,6 @@ function resul() {
   elements = []
   elements.push(resultado)
 }
-
-
-
-// function result() {
-//   let teste = calcular()
-//   document.getElementById('result').value = teste
-//   document.getElementById('result-continuous').placeholder = ""
-
-// }
-
-
-// function percentSymbol(operador) {
-//   for (let i = 0; i < elements.length; i++) {
-//     const element = elements[i];
-//     if (!isMathematicalOperator(element)) {
-//       // Se element não for um operador, o código próximo é executado.
-//       if (!currentoperator) {
-//         stack.push(element);
-//         // Se não houver um operador atual, adiciona a pilha.
-//         continue;
-//       }
-//       if (currentoperator === 'x') {
-//         stack[stack.length - 1] = Number(stack[stack.length - 1]) * Number(element);
-//       }
-//     }
-//   }
-// }
-
-
-
-
 
 
 function calcular() {
@@ -204,39 +142,3 @@ function calcular() {
     return result.toFixed(1);
   }
 }
-
-
-
-
-//  TALVEZ
-
-
-
-// NOTA 
-
-// function calcular() {
-//   let expressao = document.getElementById('display-operations').elements
-//   let array = expressao.isMathematicalOperator()
-
-//   let resultado = Number(array[0])
-//   for (let i = 1; i < array.length; i+=2) {
-//     let valor = Number(array[i+1])
-//     if(array[i] === "+"){
-//       resultado += Number(valor)
-//     }
-//     if(array[i] === "-"){
-//       resultado -= Number(valor)
-//     }
-//     if(array[i] === "*"){
-//       resultado *= Number(valor)
-//     }
-//     if(array[i] === "/"){
-//       resultado /= Number(valor)
-//     }
-//   }
-//   // console.log(array.length);
-//   document.getElementById('display-continues').placeholder = resultado
-//   // document.getElementById('result-continuous').placeholder = ''
-//   // console.log("aqui",resultado)
-//   return resultado;
-// }
